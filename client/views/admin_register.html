@@ -1,0 +1,42 @@
+<div>
+    <a href="">Go Back</a>
+
+    <h2 class="page-header">Account Login</h2>
+    <!--<form method="post" action="/users/login">-->
+    <form>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="dname" ng-model="admin.name" placeholder="Name">
+        </div>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="dusername"  ng-model="admin.username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" name="demail" ng-model="admin.email" placeholder="E-Mail">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="dpassword" ng-model="adminpassword" placeholder="Password">
+        </div>
+
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" name="confirm_password" ng-model="admin.confirm_password" placeholder="Confirm Password">
+        </div>
+
+        <button type="submit" class="btn btn-default" ng-click="registerAd()">Submit</button>
+        <!--<button type="button" ng-click="ChangeView()" class="btn btn-primary">1-Way Data Binding</button>-->
+
+        <!--<button type="button" ng-click="loadRegister()" class="btn btn-default" > Register</button>-->
+
+        <!--<button type="submit" class="btn btn-default" href="#/sport/register"> Register</button>-->
+
+    </form>
+</div>

@@ -1,0 +1,81 @@
+<!--<div class="container audio_upload" data-ng-show="token" data-ng-controller="XMEN">-->
+<div class="container audio_upload" data-ng-show="token">
+
+    <div class="row" style="margin-top: 100px">
+        <div class="col-xs-12">
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+
+                    <h2>File Uploader</h2>
+                    <h5>Title</h5>
+                    <input type="text" class="form-control" ng-model="audio.title" placeholder="Audio title">
+
+                    <h5>Description</h5>
+                    <input type="text" class="form-control" ng-model="audio.description" placeholder="description">
+                    <h4>Select Audio File</h4>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"></div>
+                    </div>
+                    <button class="btn btn-lg btn-primary" class="button"
+                            ngf-select ng-model="file"
+                            name="file"
+                            ngf-pattern="'audio/*'"
+                            ngf-accept="'audio/*'"
+                            ngf-max-size="3000MB"
+                            ngf-min-height="100"
+                            ngf-resize="{width: 100, height: 100}">Choose File
+                    </button>
+                    <button class="btn btn-lg btn-success" type="button" ng-click="upload()">Upload File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!---->
+
+<div class="container audio_page" style="width: 80%; margin-top: 50px">
+
+    <div class="panel panel-default" ng-init="getAudioFiles()">
+        <div class="panel-heading" style="background: black">
+            <h1 class="panel-title pt">Available Audio Messages</h1>
+        </div>
+
+
+        <div class="row" ng-repeat="audio in audioo">
+
+            <div class="col-md-2">
+                <img src="../public/img/eym_audio.png" class="img-responsive" alt="audio message">
+
+            </div>
+            <div class="col-md-3">
+                <h3 class="audio-title">{{audio.title}}</h3>
+                <h5 class="audio-desc">{{audio.description}}</h5>
+            </div>
+            <div class="col-md-3">
+                <h3 class="audio-desc">{{audio.filesize}}</h3>
+                <h5 class="audio-desc">{{audio.create_date | date}}</h5>
+            </div>
+            <div class="col-md-2">
+                <!--<p class=" btn btn-primary" href="http://localhost:803/api/download/{{audio.downloadlink}}" style="margin-top: 20px">Download</p>-->
+                <!--<button ng-click="csv()">.csv</button>-->
+                <p class=" btn btn-primary" ng-click="downloadAudio(audio.downloadlink)" style="margin-top: 20px">
+                    Download</p>
+
+            </div>
+            <div class="col-md-2" data-ng-show="token" data-ng-controller="XMEN">
+                <!--<p class=" btn btn-primary"  ng-click="ShowConfirm()" style="margin-top: 20px">Delete<span>&times;</span></p>-->
+                <!--<p class=" btn btn-primary" ng-click="deleteFile(audio.downloadlink)" style="margin-top: 20px">-->
+                <p class=" btn btn-primary" ng-click="deleteFile(audio.downloadlink, audio._id )" style="margin-top: 20px">
+                <!--<p class=" btn btn-primary" ng-click="deleteFile(audio._id )" style="margin-top: 20px">-->
+
+                Delete<span>&times;</span></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+

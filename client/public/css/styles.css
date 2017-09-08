@@ -1,0 +1,236 @@
+.the_body {
+    margin-top: 50px;
+}
+
+img {
+    /*width: 100%;*/
+    /*height: auto;*/
+    overflow: hidden;
+    /*transform:translate(-50%,-50%)*/
+}
+
+.exce ul {
+    list-style: none;
+}
+
+.exce ul li:before {
+    content: "\2023 \0020";
+}
+
+/*ul li:before {*/
+/*content: "\00BB \0020";*/
+/*}*/
+
+img {
+    height: auto;
+}
+
+@media (max-width: 250px) {
+    img {
+        margin-top: 50px;
+        width: 100%;
+        height: 10%;
+    }
+}
+
+@media (max-width: 400px) {
+    img {
+        margin-top: 50px;
+        width: 100%;
+        height: 20%;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 600px) {
+    img {
+        margin-top: 50px;
+
+        width: 100%;
+        height: 40%;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1190px) {
+    img {
+        margin-top: 50px;
+
+        width: 100%;
+        height: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    img {
+        margin-top: 50px;
+        width: 100%;
+        height: 50%;
+    }
+}
+
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    /*font: 300 100% 'Helvetica Neue', Helvetica, Arial;*/
+
+    /*-webkit-transform:translate(-50%,-50%);*/
+    /*transform:translate(-50%,-50%)*/
+
+    /*margin-top:50%;*/
+    /*left:50%;*/
+}
+
+h2 {
+    font-size: 21px;
+    margin-bottom: 22px;
+    color: #122b40;
+
+}
+
+.mediaMenu:hover ul {
+    display: inherit;
+    left: 0
+}
+
+.mediaMenu ul {
+    top: 40px;
+    display: none;
+    list-style-type: none;
+    background-color: tomato;
+    text-decoration: underline;
+}
+
+.mediaMenu li:hover a {
+    /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor  has moved down the list. */
+    background-color: #6b0c36;
+    text-decoration: underline;
+}
+
+.container .ex {
+    margin-top: 150px;
+
+}
+
+#upload-input {
+    display: none;
+}
+
+.mediaMenu li:hover ul a {
+    /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+    text-decoration: none;
+}
+
+.mediaMenu li:hover ul li a:hover {
+    /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+    background-color: #333;
+}
+
+.the-c {
+    background: #2b2b2b;
+}
+
+.the-contents {
+    margin-top: 15px;
+    background: #e4e5e0;
+    padding-left: 15px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+.base {
+    margin-top: 5%;
+}
+
+/*ul li {*/
+/*display: inline;*/
+/*text-align: center;*/
+/*}*/
+
+a {
+    display: inline-block;
+    /*width: 100%;*/
+    padding: .75rem 0;
+    margin: 0;
+    text-decoration: none;
+    color: #333;
+}
+
+/*.navbar-nav > .active > a,*/
+/*.nav .navbar-nav > .active > a:hover, .navbar-nav > li > a:hover {*/
+/*text-decoration: none;*/
+/*font-weight: bold;*/
+/*border-radius: 0px;*/
+/*border-bottom-width: 4px;*/
+/*border-bottom-style: solid;*/
+/*border-bottom-color: tomato;*/
+/*color: #000 !important;*/
+/*background-color: transparent !important;*/
+/*}*/
+
+a {
+    position: relative;
+    display: block;
+    padding: 16px 0;
+    margin: 0 12px;
+    letter-spacing: 1px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: color 0.1s, background-color 0.1s, padding 0.2s ease-in;
+    color: #000;
+}
+
+a::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #000;
+    transform-origin: right top;
+    transform: scale(0, 1);
+    transition: color 0.1s, transform 0.2s ease-out;
+}
+
+a:active::before {
+    background-color: #000;
+}
+
+a:hover::before, a:focus::before {
+    transform-origin: left top;
+    transform: scale(1, 1);
+}
+
+a:active::after {
+    background-color: #000;
+}
+
+.men h2
+{
+    font-size: 30px;
+    font-weight: 700;
+    padding-top: 30px;
+    color: #00b3ee;
+}
+/*animating style*/
+/*div {*/
+    /*position: relative;*/
+/*}*/
+/*img {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*transition: 1.5s opacity;*/
+    /*width: 200px;*/
+    /*height: 200px;*/
+/*}*/
+
