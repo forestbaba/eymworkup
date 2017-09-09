@@ -4,7 +4,7 @@
   "description": "A christian ministry whose focus are youths",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "app.js"
   },
   "dependencies": {
     "angular-file-saver": "^1.1.3",
@@ -27,11 +27,12 @@
     "morgan": "^1.8.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "path": "*"
+    "path": "*",
+    "serve-favicon": "^2.4.3"
   },
-  "scripts":
-  {
-    "start":"app.js"
+  "engines": {
+    "node": "v6.11.2",
+    "npm": "4.5.0"
   },
   "author": "forestbaba",
   "license": "ISC"

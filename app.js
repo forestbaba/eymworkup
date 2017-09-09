@@ -9,6 +9,7 @@ var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var expressValidator = require('express-validator');
 var jade = require('jade');
+var favicon = require('serve-favicon');
 
 var jwt = require('jsonwebtoken');
 
@@ -31,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname+'/client'));//	__dirname is a  local to each module.
 app.use('/client', express.static(__dirname + '/client'));
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(favicon(__dirname +'/client/public/assets/ico/favicon.ico'));
 app.set('view engine', 'jade');
 
 //app.set('view engine', 'html');
@@ -68,12 +70,14 @@ app.use(function (req, res, next)
 //}));
 
 
-
-app.get('/', function(req, res)
-{
-    // res.send('Please visit /api/users and ');
-    //res.sendfile('./client/index.html');
-});
+//
+//app.get('/', function(req, res)
+//{
+//     res.send('Please visit /api/users and ');
+//    //res.sendfile('./client/index.html');
+//    //res.render('./client/index.html');
+//
+//});
 
 app.post('/api/upload',multipartMiddleware, audioUploadController.uploadAudio);
 app.get('/api/upload/get', audioUploadController.getAudioFiles);
@@ -113,7 +117,9 @@ function ensureAuthorized(req, res, next)
 
 
 
-
-http.createServer(app).listen(app.get('port'), function () {
-    console.log("Express server listening on port " + app.get('port'));
+app.listen(process.env.PORT || 803, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
+//http.createServer(app).listen(app.get('port'), function () {
+//    console.log("Express server listening on port " + app.get('port'));
+//});
