@@ -19,8 +19,8 @@ var audioUploadController = require('./server/controllers/audio-controller.js');
 var adminRegister = require('./server/controllers/admin-register-controller.js');
 var adz = require('./server/controllers/admin3');
 
-mongoose.connect('mongodb://localhost/eym');
-var db = mongoose.connection;
+//mongoose.connect('mongodb://localhost/eym');
+//var db = mongoose.connection;
 
 
 
