@@ -22,8 +22,9 @@ var theBlog = angular.module('myApp', ['ui.router','ngFileSaver', 'ngFileUpload'
 //var theBlog = angular.module('myApp', ['ui.router', 'ngFileUpload']);
 
 
-theBlog.config(function ($stateProvider, $urlRouterProvider,$httpProvider) {
+theBlog.config(function ($stateProvider, $urlRouterProvider,$httpProvider,$locationProvider) {
     console.log("coming.....")
+    $locationProvider.html5Mode(true);
 
     $urlRouterProvider.otherwise('/');
     $stateProvider
