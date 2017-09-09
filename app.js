@@ -71,13 +71,13 @@ app.use(function (req, res, next)
 
 
 //
-//app.get('/', function(req, res)
-//{
-//     res.send('Please visit /api/users and ');
-//    //res.sendfile('./client/index.html');
-//    //res.render('./client/index.html');
-//
-//});
+app.get('/', function(req, res)
+{
+     res.send('Please visit /api/users and ');
+    //res.sendfile('./client/index.html');
+    //res.render('./client/index.html');
+
+});
 
 app.post('/api/upload',multipartMiddleware, audioUploadController.uploadAudio);
 app.get('/api/upload/get', audioUploadController.getAudioFiles);
