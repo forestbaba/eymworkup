@@ -155,7 +155,7 @@
 .about_page {
     background: rgba(0, 0, 0, 0.9);
     margin-bottom: 30px;
-
+    /*margin-top: 50px;*/
     /*padding-left: 0 !important;*/
     /*margin-top: 0px !important;*/
 }
@@ -174,6 +174,14 @@
     font-weight: bold;
     font-size: 15px;
 
+}
+.img_icon
+{
+    margin-top: 10px;
+}
+.contact_page
+{
+    margin-top: 10px
 }
 
 .about {

@@ -1,6 +1,7 @@
+<!doctype html>
 <html ng-app="myApp">
 <head>
-    <base href="/">
+    <base href="/index.html">
     <title>Excellent Youth Ministry</title>
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
     <link rel="shortcut icon" href="public/assets/ico/eym.ico">
@@ -11,10 +12,8 @@
 
 
 </head>
-<body class="bodym">
-<!--<div class="image_risen">-->
-
-<nav class="navbar navbar-default  navbar-fixed-top" role="navigation" data-ng-controller="XMEN">
+<body class="bodym" ng-controller="logoutController">
+<nav class="navbar navbar-default  navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header ">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -25,7 +24,8 @@
 
             </button>
 
-            <a class="navbar-brand" href=""><img style="width: 64px; height: 58px" src="public/img/eym3.png" alt="Dispute Bills">EXCELLENT YOUTH MINISTRY</a>
+            <a class="navbar-brand" href=""><img style="width: 64px; height: 58px" src="public/img/eym3.png"
+                                                 alt="Dispute Bills">EXCELLENT YOUTH MINISTRY</a>
 
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -42,15 +42,14 @@
                 </li>
 
                 <li><a href="/contact">Contact us</a></li>
+                <!--<li><a href="/admin">Admin</a></li>-->
 
 
-
-                <li data-ng-show="token"><a ng-click="logout()">Logout</a></li>
+                <li ng-show="currentUser"><a href="/logout" ng-click="logoutAdminOut()">Logout</a></li>
                 <!--<li><a href="#">{{"Token is: "+token}}</a></li>-->
             </ul>
 
         </div>
-        <!--/.nav-collapse -->
     </div>
 
 
@@ -70,9 +69,6 @@
 
 
 </footer>
-
-
-
 </body>
 
 
@@ -85,27 +81,23 @@
 
 
 <!--Libraries-->
-
-
-
-<script src="/node_modules/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
-
-
-<script src="/node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
-<script src="/node_modules/ng-file-upload/dist/ng-file-upload-all.js"></script>
-<script src="/node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
-<script src="/node_modules/ngstorage/ngStorage.min.js"></script>
+<!--<script src="/node_modules/angular-file-saver/dist/angular-file-saver.bundle.js"></script>-->
+<!--<script src="/node_modules/ng-file-upload/dist/ng-file-upload.js"></script>-->
+<!--<script src="/node_modules/ng-file-upload/dist/ng-file-upload-all.js"></script>-->
+<!--<script src="/node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>-->
+<!--<script src="/node_modules/ngstorage/ngStorage.min.js"></script>-->
 
 
 <!--controllers-->
 <script src="client.js"></script>
-<script src="/client/controller/audioUploadController.js"></script>
-<script src="/client/controller/adminController.js"></script>
-<script src="/client/controller/xmen.js"></script>
-
-
 <script src="/client/controller/services.js"></script>
-
-
+<script src="/client/controller/audioUploadController.js"></script>
+<!--<script src="/client/controller/adminController.js"></script>-->
+<script src="/client/controller/adminLogin.js"></script>
+<script src="/client/controller/admin.Logout.js"></script>
+<script src="/client/controller/indexController.js"></script>
+<!--<script src="/client/controller/audioController.js"></script>-->
+<script src="/client/controller/adminRegister.js"></script>
+<script src="/client/controller/audioFileController.js"></script>
 </html>
 

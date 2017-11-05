@@ -1,7 +1,7 @@
 (function () {
     angular.module('myApp')
-        .controller('AudioUploadController', ['Upload', 'FileSaver', 'Blob', '$scope', '$http', '$stateParams', '$window', '$rootScope', 'Main', '$localStorage',
-            function (Upload, FileSaver, Blob, $scope, $http, $stateParams, $window,$rootScope, Main, $localStorage) {
+        .controller('AudioUploadController', ['Upload', 'FileSaver', 'Blob', '$scope', '$http', '$stateParams', '$window', '$rootScope', '$localStorage',
+            function (Upload, FileSaver, Blob, $scope, $http, $stateParams, $window,$rootScope, $localStorage) {
             //$scope.user = "Admin";
             console.log("upload controller sited");
 
@@ -52,10 +52,12 @@
 
 
             $scope.getAudioFiles = function () {
-                $http.get('/api/upload/get').success(function (response) {
+                $http.get('/api/upload/get').success(function (response)
+                {
                     console.log("hearing...." + response)
                     $scope.audioo = response;
-                }).error(function (err) {
+                }).error(function (err)
+                {
                     console.log(err);
                 })
             }

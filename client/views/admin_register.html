@@ -1,42 +1,142 @@
-<div>
-    <a href="">Go Back</a>
+<!--<div>-->
+    <!--<a href="">Go Back</a>-->
 
-    <h2 class="page-header">Account Login</h2>
-    <!--<form method="post" action="/users/login">-->
-    <form>
+    <!--<h2 class="page-header">Account Login</h2>-->
+    <!--&lt;!&ndash;<form method="post" action="/users/login">&ndash;&gt;-->
+    <!--<form>-->
 
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="dname" ng-model="admin.name" placeholder="Name">
+        <!--<div class="form-group">-->
+            <!--<label>Name</label>-->
+            <!--<input type="text" class="form-control" name="dname" ng-model="admin.name" placeholder="Name">-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+            <!--<label>Username</label>-->
+            <!--<input type="text" class="form-control" name="dusername" ng-model="admin.username" placeholder="Username">-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+            <!--<label>Email</label>-->
+            <!--<input type="text" class="form-control" name="demail" ng-model="admin.email" placeholder="E-Mail">-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+            <!--<label>Password</label>-->
+            <!--<input type="password" class="form-control" name="dpassword" ng-model="adminpassword"-->
+                   <!--placeholder="Password">-->
+        <!--</div>-->
+
+
+        <!--<div class="form-group">-->
+            <!--<label>Confirm Password</label>-->
+            <!--<input type="password" class="form-control" name="confirm_password" ng-model="admin.confirm_password"-->
+                   <!--placeholder="Confirm Password">-->
+        <!--</div>-->
+
+        <!--<button type="submit" class="btn btn-default" ng-click="registerAd()">Submit</button>-->
+        <!--&lt;!&ndash;<button type="button" ng-click="ChangeView()" class="btn btn-primary">1-Way Data Binding</button>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<button type="button" ng-click="loadRegister()" class="btn btn-default" > Register</button>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<button type="submit" class="btn btn-default" href="#/sport/register"> Register</button>&ndash;&gt;-->
+
+    <!--</form>-->
+<!--</div>-->
+
+
+<div class="container-fluid col-lg-offset-3  col-sm-offset" style="margin-top: 50px" >
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Admin Registration Page</div>
+                <div class="panel-body">
+                    {{errorMessage}}
+                    <form name="adminRegister" class="form" role="form" ng-submit="adminRegister.$valid " novalidate>
+
+
+                        <div class="form-group"
+                             ng-class="{'has-error':adminRegister.dname.$touched && adminRegister.dname.$invalid,
+                             'has-success':adminRegister.dname.$touched && adminRegister.dname.$valid}">
+                            <!--ng-pattern='/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-2][0-9]3[0-1])$/'-->
+
+                            <label class="control-label">Name</label>
+                            <input type="text"
+                                   class="form-control" name='dname' ng-model="registerForm.name" placeholder="Name"
+                                   ng-minlength='5' ng-maxlength='15' required>
+                            <p class='help-block' ng-show=' adminRegister.$dirty && adminRegister.dname.$invalid' >
+                                Enter a name between 5 and 15
+                            </p>
+                        </div>
+
+
+                        <div class="form-group"
+                             ng-class="{'has-error':adminRegister.dusername.$touched && adminRegister.dusername.$invalid,
+                             'has-success':adminRegister.dusername.$touched && adminRegister.dusername.$valid}">
+                            <label>Username</label>
+                            <input type="text" class="form-control" name="dusername" ng-model="registerForm.username"
+                                   ng-minlength='5' ng-maxlength="15"
+                                   placeholder="Username" required>
+                            <p class='help-block' ng-show=' adminRegister.$dirty && adminRegister.dusername.$invalid' >
+                                Enter a name between 5 and 15
+                            </p>
+                        </div>
+
+                        <!--<div class="form-group" ng-class="-->
+                        <!--{-->
+                        <!--'has-error':!adminRegister.demail.$valid && (!adminRegister.$pristine || adminRegister.$submitted),-->
+                        <!--'has-success':adminRegister.demail.$valid && (!adminRegister.$pristine || adminRegister.$submitted)-->
+                        <!--}">-->
+
+                        <div class="form-group" ng-class="{'has-error':adminRegister.demail.$touched && adminRegister.demail.$invalid,
+                             'has-success':adminRegister.demail.$touched && adminRegister.demail.$valid}">
+                        <label>Email</label>
+                            <input type="email" class="form-control" name="demail" ng-model="registerForm.email" placeholder="E-Mail" required>
+                        </div>
+
+                        <p class='help-block' ng-show=' adminRegister.$dirty && adminRegister.demail.$invalid' >
+                           Enter a valid Email
+                        </p>
+
+
+                        <!--<p class="help-block" ng-show="adminRegister.demail.$error.required && (!adminRegister.$pristine || adminRegister.$submitted)">-->
+                            <!--This Field is Required-->
+                        <!--</p>-->
+                        <p class="help-block" ng-show="adminRegister.demail.$error.demail && (!adminRegister.$pristine ||adminRegister.$submitted)">
+                            Please enter a valid Email
+                        </p>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="dpassword" ng-model="registerForm.password"
+                                   placeholder="Password" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Repeat-Password</label>
+                            <input type="password" class="form-control" name="dpasswordconfirm"
+                                   placeholder="Confirm Password"  ng-model="dpasswordconfirm" required>
+
+                            <p class="help-block" ng-show="(adminRegister.dpassword.$modelValue !== adminRegister.dpasswordconfirm.$modelValue)
+                                && adminRegister.dpasswordconfirm.$touched
+                                && !adminRegister.dpasswordconfirm.$error.required" style="color: red">Password does not match.</p>
+                        </div>
+
+
+                        <div class="panel-footer">
+                            <button type="submit" ng-disabled="adminRegister.$invalid" class="btn btn-primary" ng-click="register()">Submit</button>
+                            <button type="submit" class="btn btn-primary" ng-click="closeRegister()"> Close</button>
+                            <!--<button type="button" class="btn btn-primary btn-lg" id="load"-->
+                                    <!--data-loading-text="<i class='fa fa-spinner fa-spin '>-->
+                                    <!--</i> Processing Order">Submit Order</button>-->
+
+                            <!--&lt;!&ndash;<button type="submit" class="btn btn-success" ng-click="loadAdminRegister()">Register&ndash;&gt;-->
+                            <!--</button>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="dusername"  ng-model="admin.username" placeholder="Username">
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="demail" ng-model="admin.email" placeholder="E-Mail">
-        </div>
-
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="dpassword" ng-model="adminpassword" placeholder="Password">
-        </div>
-
-
-        <div class="form-group">
-            <label>Confirm Password</label>
-            <input type="password" class="form-control" name="confirm_password" ng-model="admin.confirm_password" placeholder="Confirm Password">
-        </div>
-
-        <button type="submit" class="btn btn-default" ng-click="registerAd()">Submit</button>
-        <!--<button type="button" ng-click="ChangeView()" class="btn btn-primary">1-Way Data Binding</button>-->
-
-        <!--<button type="button" ng-click="loadRegister()" class="btn btn-default" > Register</button>-->
-
-        <!--<button type="submit" class="btn btn-default" href="#/sport/register"> Register</button>-->
-
-    </form>
+    </div>
 </div>
+

@@ -1,65 +1,62 @@
-<!--<a href="#/books">Go Back</a>-->
-<!--<div class="panel panel-default">-->
-<!--<div class="panel-heading">-->
-<!--<h3 class="panel-title">Edit Book</h3>-->
+<!--<div class= "col-md-4" >-->
+    <!--<h1> Login </h1>-->
+    <!--<div ng-show= "error" class= "alert alert-danger" >-->
+        <!--{{errorMessage}} </div>-->
+    <!--<form class= "form" ng-submit= "loginAdmin()" >-->
+        <!--<div class= "form-group" >-->
+            <!--<label> Username </label>-->
+            <!--<input type= "text" class= "form-control"-->
+                   <!--name= "username" ng-model= "loginForm.username"-->
+                   <!--required >-->
+        <!--</div>-->
+        <!--<div class= "form-group" >-->
+            <!--<label> Password</label>-->
+            <!--<input type= "password" class= "form-control"-->
+                   <!--name= "password" ng-model= "loginForm.password"-->
+                   <!--required >-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<button type= "submit" class= "btn btn-default" ng-disabled= "disabled" >Login </button>-->
+        <!--</div>-->
+    <!--</form>-->
 <!--</div>-->
-<!--<div class="panel-body">-->
-<!--<div class="row">-->
-<!--<div class="col-md-12">-->
-<!--<form ng-submit="addSport()">-->
-<!--<div class="form-group">-->
-<!--<label>Title</label>-->
-<!--<input type="text" class="form-control" ng-model="sport.title" placeholder="Title">-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label> Likes</label>-->
-<!--<input type="text" class="form-control" ng-model="sport.likes" placeholder="Number Of Likes">-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label>Author</label>-->
-<!--<input type="text" class="form-control" ng-model="sport.author" placeholder="Author">-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label>Story</label>-->
-<!--<textarea class="form-control" ng-model="sport.story" placeholder="Story"></textarea>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label>Number of views</label>-->
-<!--<input type="text" class="form-control" ng-model="sport.number_of_views" placeholder="Number Of views">-->
-<!--</div>-->
-<!-- -->
-<!--<button type="submit" class="btn btn-default">Submit</button>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<div ng-app="myApp" ng-controller="XMEN">
-    <a href="#/books">Go Back</a>
 
-    <h2 class="page-header">Account Login</h2>
-    <!--<form method="post" action="/users/login">-->
-    <div ng-show="error" class="alert alert-danger">{{error}}</div>
-    <form>
 
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email" placeholder="Username"  id="email" ng-model="admin.email">
+<div class="container-fluid col-lg-offset-3  col-sm-offset" style="margin-top: 50px">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Admin Login Page</div>
+                <div class="panel-body ">
+                    <form class="form" name="loginForm">
+                        <!--<p>Remind me i want to disable login button if the email and password field are empty</p>-->
+                        <div class="label-warning"> {{errorMessage}}</div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" name="email" placeholder="Username" id="email"
+                                   ng-model="loginForm.username" ng-required="true">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password"
+                                   id="password" ng-model="loginForm.password" required>
+                        </div>
+
+
+                        <div class="panel-footer">
+
+                            <!--<button ng-disabled="loginForm.$invalid"  type="submit" class="btn btn-primary" ng-click="loginAdmin()">Submit</button>-->
+                            <button ng-disabled="loginForm.$invalid"  type="submit" class="btn btn-primary" ng-click="loginAdmin()">Submit</button>
+
+                            <button type="submit" class="btn btn-success" ng-click="loadAdminRegister()">Register
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password"  id="password" ng-model="admin.password">
-        </div>
-        <button type="submit" class="btn btn-default" ng-click="signze()">Login</button>
-        <!--<button type="submit" class="btn btn-default" ng-click="signin()">Login</button>-->
-
-
-        <button type="submit" class="btn btn-default" ng-click="loadAdminRegister()">Register</button>
-        <!--<button type="button" ng-click="ChangeView()" class="btn btn-primary">1-Way Data Binding</button>-->
-
-        <!--<button type="button" ng-click="loadRegister()" class="btn btn-default" > Register</button>-->
-
-        <!--<button type="submit" class="btn btn-default" href="#/sport/register"> Register</button>-->
-
-    </form>
+    </div>
 </div>
+

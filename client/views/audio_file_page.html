@@ -1,0 +1,102 @@
+<div class="container audio_upload" data-ng-show="currentUser">
+    <div class="row" style="margin-top: 100px">
+        <div class="col-xs-12">
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+
+                    <h2>File Uploader</h2>
+
+                    <form class="form" name="audioUploadForm">
+                        <!--<p>Remind me i want to disable login button if the email and password field are empty</p>-->
+                        <div class="label-warning"> {{errorMessage}}</div>
+
+                        <div class="form-group">
+                            <label>Tile</label>
+                            <input type="text" class="form-control" name="email" placeholder="Title" id="title"
+                                   ng-model="audioUploadForm.title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description" placeholder="Description"
+                                   id="description"
+                                   ng-model="audioUploadForm.description" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Download Link</label>
+                            <input type="text" class="form-control" name="downloadlink" placeholder="Download link"
+                                   id="downloadlink"
+                                   ng-model="audioUploadForm.downloadlink" required>
+                        </div>
+
+
+                        <div class="panel-footer">
+
+                            <button ng-disabled="audioUploadForm.$invalid" type="submit" class="btn btn-primary"
+                                    ng-click="uploadAudio()">Submit
+                            </button>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!---->
+<div>
+
+    <div class="container audio_page" style="width: 80%; margin-top: 50px">
+
+        <!--<div class="panel panel-default" ng-init="getAudioFiles()">-->
+        <div class="panel panel-default" ng-init="getAudioFiles()">
+
+            <div class="panel-heading" style="background: black">
+                <h1 class="panel-title pt">Available Audio Messages</h1>
+                <!--<h2>current user is: {{currentuser}}</h2>-->
+            </div>
+
+
+            <div class="row" ng-repeat="audio in theAudios">
+
+                <div class="col-md-2">
+                    <img src="../public/img/eym_audio.png" class="img-responsive" alt="audio message">
+
+                </div>
+                <div class="col-md-3">
+                    <h3 class="audio-title">{{audio.title}}</h3>
+                    <h5 class="audio-desc">{{audio.description}}</h5>
+                </div>
+                <div class="col-md-3">
+                    <!--<h3 class="audio-desc">{{audio.filesize}}</h3>-->
+                    <h5 class="audio-desc">{{audio.date | date}}</h5>
+                </div>
+                <div class="col-md-2">
+                    <!--<p class=" btn btn-primary" href="http://localhost:803/api/download/{{audio.downloadlink}}" style="margin-top: 20px">Download</p>-->
+                    <!--<button ng-click="csv()">.csv</button>-->
+                    <!--<p class=" btn btn-primary" href="{{audio.downloadlink}}"  style="margin-top: 20px">Download</p>-->
+
+                    <a target="_blank" href="{{audio.downloadlink}}" class="btn btn-primary" style="margin-top: 20px">Download</a>
+
+                    <!--<h5 class="audio-desc">{{audio.downloadlink}}</h5>-->
+
+                </div>
+                <div class="col-md-2" data-ng-show="currentUser">
+                    <!--<p class=" btn btn-primary"  ng-click="ShowConfirm()" style="margin-top: 20px">Delete<span>&times;</span></p>-->
+                    <!--<p class=" btn btn-primary" ng-click="deleteFile(audio.downloadlink)" style="margin-top: 20px">-->
+                    <p class=" btn btn-primary" ng-click="deleteAudioFile(audio._id)"
+                       style="margin-top: 20px">
+                        <!--<p class=" btn btn-primary" ng-click="deleteFile(audio._id )" style="margin-top: 20px">-->
+
+                        Delete<span>&times;</span></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

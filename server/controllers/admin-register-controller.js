@@ -4,255 +4,231 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
+var bcrypt = require('bcryptjs');
+var expressValidator = require('express-validator');
+var jwt = require('jwt-simple');
 
 
-//var User = require('../models/admin/admin_user');
-var User = require('../models/admin/admin');
+var User = require('../models/admin/admin_user');
+var config = require('../helpers/dbconst');
+//var User = require('../models/admin/newadmin');
 
-//var login_me_in = require('.../');
-
-//express.use(bodyParser.json());
-
-
-//router.post('/register', function(req, res){
-
+const saltRounds = 10;
 
 module.exports.regMe = function (req, res) {
-    var email = req.body.email;
-    var password = req.body.password;
 
-    User.findOne({ username: username }, function(err, user)
-    {
+    var name = req.body.dname;
+    var email = req.body.demail;
+    var username = req.body.dusername;
+    var password = req.body.dpassword;
+
+
+    bcrypt.hash(password, saltRounds, function (err, hash) {
         if (err)
-            throw (err);
+            throw err;
 
-        // make sure the user exists
-        if (!user) {
-            throw (err);
-        }
-
-        // test for a matching password
-        user.comparePassword(password, function(err, isMatch)
-        {
-            if (err)
-                throw (err);
-
-            // check if the password was a match
-            if (isMatch)
-            {
-                res.json({status:'welcome '+email})
-            }
-
+        var newUser = new User({
+            name: name,
+            email: email,
+            username: username,
+            password: hash
         });
+        newUser.save();
+        res.json(req.body);
+
+        // Store hash in your password DB.
     });
+
 }
 
-module.exports.logAdminIn = function (req, res) {
+module.exports.signup = function (req, res) {
+    if (!req.body.name || !req.body.username || !req.body.password) {
+        res.json({success: false, msg: 'pass name and password'});
+    } else {
+        var newUser = User(
+            {
+                name: req.body.name,
+                username: req.body.username,
+                password: req.body.password
+            });
+        newUser.save(function (err, user) {
+            if (err) {
+                res.json({success: false, msg: 'pass appropriate details'});
+            } else {
+                res.json({success: true, msg: 'successfully created'});
+                console.log(user);
 
-    //var email = req.body.email;
-    //var password = req.body.password;
+            }
+        })
+    }
+}
 
+
+module.exports.authenticate = function (req, res) {
     User.findOne({
-        email: req.body.email
-    }, function(err, user) {
+        name: req.body.name
+    }, function (err, user) {
         if (err) throw err;
 
         if (!user) {
             res.send({success: false, msg: 'Authentication failed. User not found.'});
         } else {
             // check if password matches
-            user.comparePassword(req.body.password, function (err, isMatch)
-            {
-                if (isMatch && !err)
-                {
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if (isMatch && !err) {
                     // if user is found and password is right create a token
-                    //var token = jwt.encode(user, config.secret);
+                    var token = jwt.encode(user, config.secret);
                     // return the information including token as JSON
-                    //res.json({success: true, token: 'JWT ' + token});
-                    res.json({success: true, message: 'success'});
-                    console.log('Inside....')
+                    res.json({success: true, token: 'JWT ' + token});
                 } else {
                     res.send({success: false, msg: 'Authentication failed. Wrong password.'});
-                    console.log('Error....')
-
                 }
             });
         }
     });
 }
 
-module.exports.registerAdmin = function (req, res) {
+module.exports.memberInfo = function (req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+        User.findOne({
+            name: decoded.name
+        }, function (err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+            } else {
+                res.json({success: true, msg: 'Welcome in the member area ' + user.name + '!'});
+            }
+        });
+    } else {
+        return res.status(403).send({success: false, msg: 'No token provided.'});
+    }
+};
+getToken = function (headers) {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    }
+    else
+    {
+        return null;
+    }
+};
+
+module.exports.registerAdmin = function (req, res, next) {
+    passport.authenticate('local', {successFlash: 'Welcome!'});
+
     var name = req.body.name;
     var email = req.body.email;
     var username = req.body.username;
     var password = req.body.password;
-    var password2 = req.body.confirm_password;
-    console.log("Name is :" + name, "Email :" + email, "username :" + username)
 
-    // Validation
-    //req.checkBody('name', 'Name is required').notEmpty();
-    //req.checkBody('email', 'Email is required').notEmpty();
-    //req.checkBody('email', 'Email is not valid').isEmail();
-    //req.checkBody('username', 'Username is required').notEmpty();
-    //req.checkBody('password', 'Password is required').notEmpty();
-    //req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-    //
-    //var errors = req.validationErrors();
-    //
-    //if(errors){
-    //    //res.render('admin_register',{
-    //    //    errors:errors
-    //    //});
-    //    console.log(' we have errors: '+ errors);
-    //} else {
-    //    var newUser = new User({
-    //        name: name,
-    //        email:email,
-    //        username: username,
-    //        password: password
-    //    });
-    //
-    //    User.createUser(newUser, function(err, user)
-    //    {
-    //        if(err) throw err;
-    //        console.log(user);
-    //    });
-    //
-    //    console.log('Registered')
-    //    req.flash('success_msg', 'You are registered and can now login');
-    //
-    //    //res.redirect('/users/login');
-    //
-    //}
+    console.log('coming through.....')
 
 
-    //var email = req.body.email;
-    //var password = req.body.password;
-    //var username = email.split("@");// the string before "@" is the username
-    //username = username[0];// create username by reading from alphabet at position zero
-    //var userModel = new User();
-    //userModel.email = email;
-    //userModel.password = crypto.createHash('md5').update(password).digest("hex");
-    //userModel.username = username;
-    //var userModel = new User();
-    //userModel.save(function(err) {
-    //if (error) {
-    //    res.json('register', {
-    //        title: 'Register Failed',
-    //        error: 'Technical error occured' + util.inspect(err)
-    //    });
-    //}
-    //else {
-
-
-    var newUser = new User({
-        name: name,
-        email: email,
-        username: username,
-        password: password
-    });
-
-
-    User.createUser(newUser, function (err, user) {
-        if (err) {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+        if (err)
             throw err;
-        }
-        else {
-            console.log(user);
 
-            res.status(500);
-            res.json({
-                title: 'Register successful',
-                error: false
-                //error: 'Technical error occured' + util.inspect(err)
-            });
-        }
+        var newUser = new User({
+            name: name,
+            email: email,
+            username: username,
+            password: hash
+        });
+        newUser.save();
+        console.log('Inside....')
 
+        return res.redirect('admin_login');
+        req.flash('success_msg', 'You are registered and can now login');
+
+        next();
+
+        res.json(req.body);
 
     });
+
+
 
 }
 
+module.exports.logAdminIn = function (req, res) {
+    //passport.authenticate('local',
+    //    {
+    //        //        successRedirect: '/',
+    //        //        failureRedirect: 'admin'
+    //    });
+    //res.json(req.user);
+    //
+    //res.redirect('/');
+    //
+    //console.log('ploom');
+    //
+    //app.post("/login", passport.authenticate('local-login'), function(req, res) {
+        res.json(req.user);
+    //});
 
-//var User = mongoose.model('User');
-//module.exports.loginAdmin = function (app, mongoose, config) {
-//var User = mongoose.model('User');
 
-module.exports.loginAdmin = function (req, res, next) {
+}
+module.exports.logAdminOut = function (req, res) {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
+}
 
-    var email = req.body.email;
-    var password = req.body.password;
-    var password = crypto.createHash('md5').update(password).digest("hex");
-    User.findOne(
-        {
-            email: email,
-            password: password
-        },
-        function (err, userInfo) {
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+        User.findOne({username: username}, function (err, user) {
             if (err) {
-                res.status(500);
-                res.json(
-                    {
-                        status: 'Inside'
-                    })
-                //res.render('500',
-                //    {
-                //        err: err,
-                //        url: req.url
-                //    });
+                return done(err);
             }
-            else {
-                if (userInfo) {
-                    req.session.user = userInfo;
-                    res.json(
-                        {
-                            status: 'home'
-                        })
-                    //res.redirect('/');
+            if (!user) {
+                return done(null, false, {message: 'Incorrect username.'});
+            }
+            if (!user.validPassword(password)) {
+                return done(null, false, {message: 'Incorrect password.'});
+            }
+
+            bcrypt.compare(password, user.password, function (err, res) {
+                if (err)
+                    throw err;
+
+                if (res == true) {
+                    console.log('correct password');
+                    return done(null, user);
                 }
                 else {
-                    //res.render('login', {
-                    //    title: 'Login failed',
-                    //    error: 'Incorrect username/passord'
-                    //});
-                    res.json(
-                        {
-                            status: 'failed'
-                        })
+                    console.log('incorrect password');
+                    return done(null, false);
+                    res.json('Incorrect password');
+
                 }
-            }
-        });
-
-
-    passport.use(new LocalStrategy(
-        function (username, password, done) {
-            User.getUserByUsername(username, function (err, user) {
-                if (err) throw err;
-                if (!user) {
-                    return done(null, false, {message: 'Unknown User'});
-                    res.json('unknown user')
-                }
-
-                User.comparePassword(password, user.password, function (err, isMatch) {
-                    if (err) throw err;
-                    if (isMatch) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false, {message: 'Invalid password'});
-                        res.json('Invalid password')
-
-                    }
-                });
+                // res == true
             });
-        }));
-}
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
+        });
+    }
+));
 
-passport.deserializeUser(function (id, done) {
-    User.getUserById(id, function (err, user) {
-        done(err, user);
+module.exports.loginAdmin = function (req, res)
+{
+
+}
+
+
+    passport.serializeUser(function (user, done) {
+        done(null, user.id);
     });
-});
+
+    passport.deserializeUser(function (id, done) {
+        User.getUserById(id, function (err, user) {
+            done(err, user);
+        });
+    });
 
